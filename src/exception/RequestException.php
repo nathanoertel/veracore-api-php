@@ -1,5 +1,5 @@
 <?php
 namespace VeraCoreAPI\exception;
 
-class RequestException {
+class RequestException extends \Exception {
 }

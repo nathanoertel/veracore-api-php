@@ -2,7 +2,7 @@
 namespace VeraCoreAPI;
 
 class Reports extends AbstractJSONRequest {
-    public function list() {
+    public function all() {
         return parent::get('reports');
     }
 

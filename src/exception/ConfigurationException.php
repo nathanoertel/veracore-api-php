@@ -1,5 +1,5 @@
 <?php
 namespace VeraCoreAPI\exception;
 
-class ConfigurationException {
+class ConfigurationException extends \Exception {
 }

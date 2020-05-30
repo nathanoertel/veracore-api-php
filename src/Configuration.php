@@ -40,10 +40,10 @@ class Configuration implements \JsonSerializable {
     }
 
     public function __construct($config) {
-        if(!isset($config['domain'])) throw new VeraCoreAPI\ConfigurationException('Domain required');
-        if(!isset($config['username'])) throw new VeraCoreAPI\ConfigurationException('Username required');
-        if(!isset($config['password'])) throw new VeraCoreAPI\ConfigurationException('Password required');
-        if(!isset($config['system-id'])) throw new VeraCoreAPI\ConfigurationException('System ID required');
+        if(!isset($config['domain'])) throw new exception\ConfigurationException('Domain required');
+        if(!isset($config['username'])) throw new exception\ConfigurationException('Username required');
+        if(!isset($config['password'])) throw new exception\ConfigurationException('Password required');
+        if(!isset($config['system-id'])) throw new exception\ConfigurationException('System ID required');
         $this->configuration = $config;
     }
 }

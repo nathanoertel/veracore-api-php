@@ -11,7 +11,7 @@ abstract class AbstractJSONRequest {
      * The configuration object
      * @var VeraCoreAPI\Configuration $configuration
      */
-    private $configuration;
+    protected $configuration;
 
     /**
      * The PSR-3 compatible logging interface
@@ -76,8 +76,9 @@ abstract class AbstractJSONRequest {
             $httpCode = 500;
             
             foreach($headerArray as $index => $header) {
-                if(strpos($header, 'HTTP/2') === 0) {
-                    $httpCode = intval(str_replace('HTTP/2', '', $header));
+                if(strpos($header, 'HTTP/') === 0) {
+                    list($httpType, $httpCode, $status) = explode(' ', $header);
+                    $httpCode = intval($httpCode);
                     break;
                 }
             }
@@ -85,15 +86,15 @@ abstract class AbstractJSONRequest {
             $response = json_decode($body, true);
     
             if(isset($response['Error'])) {
-                throw new VeraCoreAPI\exception\RequestException($response['Error']);
+                throw new exception\RequestException($response['Error']);
             } else if($httpCode != 200) {
-                throw new VeraCoreAPI\exception\RequestException('Unknown Error: '.$httpCode);
+                throw new exception\RequestException('Unknown Error: '.$httpCode);
 			} else {
                 return $response;
             }
 		} else {
             if($this->logger) $this->log(curl_error($curl));
-            throw new VeraCoreAPI\exception\RequestException('Unknown Error: '.curl_errno($curl));
+            throw new exception\RequestException('Unknown Curl Error: '.curl_errno($curl));
 		}
 		
 		curl_close($curl);
@@ -104,6 +105,7 @@ abstract class AbstractJSONRequest {
 
         if(!$this->configuration->isAuthenticated()) {
             try {
+                error_log('Logging In');
                 $response = $this->request('login', AbstractJSONRequest::POST, array(
                     'userName' => $this->configuration->getUsername(),
                     'password' => $this->configuration->getPassword(),
@@ -111,8 +113,8 @@ abstract class AbstractJSONRequest {
                 ));
 
                 $this->configuration->setToken($response['Token'], $response['UtcExpirationDate']);
-            } catch(VeraCoreAPI\exception\RequestException $e) {
-                throw new VeraCoreAPI\exception\AuthenticationException($e->getMessage());
+            } catch(exception\RequestException $e) {
+                throw new exception\AuthenticationException($e->getMessage());
             }
         }
 

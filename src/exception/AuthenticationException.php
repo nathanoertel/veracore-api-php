@@ -1,5 +1,5 @@
 <?php
 namespace VeraCoreAPI\exception;
 
-class AuthenticationException {
+class AuthenticationException extends \Exception {
 }
