@@ -1,0 +1,70 @@
+<?php
+namespace VeraCoreAPI\model;
+
+class ProductSerialNumbers extends PMObject {
+	protected function __fields() {
+		$fields = parent::__fields();
+		$fields['Owner'] = new FieldType('string');
+		$fields['OrderId'] = new FieldType('string');
+		$fields['OrderDate'] = new FieldType('dateTime');
+		$fields['WMS'] = new FieldType('string');
+		$fields['ShipDate'] = new FieldType('dateTime');
+		$fields['OrderedByCo'] = new FieldType('string');
+		$fields['OrderedByName'] = new FieldType('string');
+		$fields['Address'] = new FieldType('string');
+		$fields['Address2'] = new FieldType('string');
+		$fields['Address3'] = new FieldType('string');
+		$fields['City'] = new FieldType('string');
+		$fields['State'] = new FieldType('string');
+		$fields['Zip'] = new FieldType('string');
+		$fields['Country'] = new FieldType('string');
+		$fields['Phone'] = new FieldType('string');
+		$fields['Fax'] = new FieldType('string');
+		$fields['Email'] = new FieldType('string');
+		$fields['UID'] = new FieldType('string');
+		$fields['ShipToCo'] = new FieldType('string');
+		$fields['ShipToName'] = new FieldType('string');
+		$fields['STO_Address1'] = new FieldType('string');
+		$fields['STO_Address2'] = new FieldType('string');
+		$fields['STO_Address3'] = new FieldType('string');
+		$fields['STO_City'] = new FieldType('string');
+		$fields['STO_State'] = new FieldType('string');
+		$fields['STO_Zip'] = new FieldType('string');
+		$fields['STO_Country'] = new FieldType('string');
+		$fields['STO_Phone'] = new FieldType('string');
+		$fields['STO_Fax'] = new FieldType('string');
+		$fields['STO_Email'] = new FieldType('string');
+		$fields['STO_UID'] = new FieldType('string');
+		$fields['Source'] = new FieldType('string');
+		$fields['OrderQty'] = new FieldType('int');
+		$fields['ShipQty'] = new FieldType('int');
+		$fields['OnHandQty'] = new FieldType('int');
+		$fields['ReOrderPoint'] = new FieldType('int');
+		$fields['prduct_seqid'] = new FieldType('int');
+		$fields['PartNum'] = new FieldType('string');
+		$fields['Version'] = new FieldType('string');
+		$fields['Description'] = new FieldType('string');
+		$fields['Size'] = new FieldType('string');
+		$fields['Color'] = new FieldType('string');
+		$fields['SortLvl1'] = new FieldType('string');
+		$fields['SortLvl2'] = new FieldType('string');
+		$fields['SortLvl3'] = new FieldType('string');
+		$fields['SortLvl4'] = new FieldType('string');
+		$fields['FifoValue'] = new FieldType('decimal');
+		$fields['DefaultValue'] = new FieldType('decimal');
+		$fields['ExtendedFifoValue'] = new FieldType('decimal');
+		$fields['Prvers_Seqid'] = new FieldType('int');
+		$fields['ReferenceNo'] = new FieldType('string');
+		$fields['PO_Number'] = new FieldType('string');
+		$fields['OBYMailerClass'] = new FieldType('string');
+		$fields['STOMailerClass'] = new FieldType('string');
+		$fields['PickSlipId'] = new FieldType('string');
+		$fields['PRDUCT_OWNER'] = new FieldType('int');
+		$fields['OrdstoID'] = new FieldType('int');
+		$fields['SHPACK_Trackingid'] = new FieldType('string');
+		$fields['Package'] = new FieldType('int');
+		$fields['ProjectDesc'] = new FieldType('string');
+		$fields['SerialNumber'] = new FieldType('string');
+		return $fields;
+	}
+}
