@@ -1,9 +1,9 @@
 <?php
 namespace VeraCoreAPI\model;
 
-class PMObject extends PersistentObject {
+class PMObject extends AbstractModel {
 	protected function __fields() {
-		$fields = parent::__fields();
+		$fields = array();
 		return $fields;
 	}
 }

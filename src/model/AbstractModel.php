@@ -12,7 +12,17 @@ abstract class AbstractModel {
 
     public function __set($key, $value) {
         if(isset($this->__fields[$key])) {
-            if($this->__fields[$key]->valid($value)) {
+            if($this->__fields[$key]->isArray()) {
+                if(is_array($value)) {
+                    foreach($value as $val) {
+                        if(!$this->__fields[$key]->valid($val)) {
+                            throw new \Exception('Invalid Value: '.$key);
+                        }
+                    }
+                    
+                    $this->$key = $value;
+                } else throw new \Exception('Invalid Value: '.$key);
+            } else if($this->__fields[$key]->valid($value)) {
                 $this->$key = $value;
             } else throw new \Exception('Invalid Value: '.$key);
         } else {

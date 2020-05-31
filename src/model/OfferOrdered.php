@@ -7,8 +7,8 @@ class OfferOrdered extends PMObject {
 		$fields['Offer'] = new FieldType('OfferID');
 		$fields['Quantity'] = new FieldType('int');
 		$fields['CanceledQuantity'] = new FieldType('int');
-		$fields['OrderShipTo'] = new ArrayFieldType('string');
-		$fields['OrderShipToKey'] = new ArrayFieldType('string');
+		$fields['OrderShipTo'] = new FieldType('OrderShipToKey');
+		$fields['OrderShipToKey'] = new FieldType('OrderShipToKey');
 		$fields['PriceType'] = new FieldType('unsignedByte');
 		$fields['UnitPrice'] = new FieldType('decimal');
 		$fields['ShipType'] = new FieldType('short');
