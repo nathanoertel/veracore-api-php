@@ -7,4 +7,18 @@ class Orders extends AbstractSOAPRequest {
             'order' => $order
         ));
     }
+
+    public function order($orderId) {
+        return parent::get('GetOrderInfo', array(
+            'orderId' => $orderId
+        ));
+    }
+
+    public function shipments($startDate, $endDate) {
+        return parent::get('GetShippingActivity', array(
+            'StartDate' =>  $startDate,
+            'EndDate' => $endDate
+        ));
+    }
+    
 }
