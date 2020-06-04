@@ -33,19 +33,13 @@ abstract class AbstractSOAPRequest {
             'trace' => 1
         );
 
-        $client = new \SoapClient('https://'.$this->configuration->getDomain().'/pmomsws/oms.asmx?wsdl', $mode);
+        $client = new \SoapClient('https://'.$this->configuration->getDomain().$this->getWSDL(), $mode);
 
-        // $client->__setLocation($this->endpoint);
+        $client->__setLocation('https://'.$this->configuration->getDomain().$this->getEndpoint());
 
-        $header = new \SoapHeader('http://omscom/', 'AuthenticationHeader', array(
-            'Username' => $this->configuration->getUsername(),
-            'Password' => $this->configuration->getPassword()
-        ));
-
-        $client->__setSoapHeaders($header);
+        $this->getHeader($client);
 
         try {
-            error_log(var_export($data, true));
             $resp = $client->__soapCall($operation, array($data));
             $this->log($client->__getLastRequest());
             $this->log($client->__getLastResponse());
@@ -69,6 +63,12 @@ abstract class AbstractSOAPRequest {
         //     throw new exception\RequestException('Request Failed');
         // }
     }
+
+    protected abstract function getWSDL();
+
+    protected abstract function getEndpoint();
+
+    protected abstract function getHeader($client);
 
     public function __construct(Configuration $config, $logger = null) {
         $this->configuration = $config;

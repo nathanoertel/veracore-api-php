@@ -21,4 +21,20 @@ class Orders extends AbstractSOAPRequest {
         ));
     }
     
+    protected function getWSDL() {
+        return '/pmomsws/oms.asmx?wsdl';
+    }
+
+    protected function getEndpoint() {
+        return '/pmomsws/oms.asmx?wsdl';
+    }
+
+    protected function getHeader($client) {
+        $header = new \SoapHeader('http://omscom/', 'AuthenticationHeader', array(
+            'Username' => $this->configuration->getUsername(),
+            'Password' => $this->configuration->getPassword()
+        ));
+
+        $client->__setSoapHeaders($header);
+    }
 }
