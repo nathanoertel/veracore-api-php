@@ -46,22 +46,14 @@ abstract class AbstractSOAPRequest {
 
             return $resp;
         } catch(\SoapException $e) {
-            error_log('SOAPException');
             $this->log($client->__getLastRequest());
             $this->log($client->__getLastResponse());
             throw $e;
         } catch(\Exception $e) {
-            error_log('Exception');
             $this->log($client->__getLastRequest());
             $this->log($client->__getLastResponse());
             throw $e;
         }
-
-        // if($resp->Response->ResponseStatus->Code == 1) {
-
-        // } else {
-        //     throw new exception\RequestException('Request Failed');
-        // }
     }
 
     protected abstract function getWSDL();

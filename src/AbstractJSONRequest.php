@@ -105,7 +105,6 @@ abstract class AbstractJSONRequest {
 
         if(!$this->configuration->isAuthenticated()) {
             try {
-                error_log('Logging In');
                 $response = $this->request('login', AbstractJSONRequest::POST, array(
                     'userName' => $this->configuration->getUsername(),
                     'password' => $this->configuration->getPassword(),
