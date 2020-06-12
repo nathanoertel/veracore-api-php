@@ -13,6 +13,7 @@ class FieldType {
     }
 
     public function valid($value) {
+        if($value === null) return true;
         $valid = false;
         switch($this->type) {
             case 'dateTime':
