@@ -28,16 +28,7 @@ abstract class AbstractSOAPRequest {
     }
 
     private function request($operation, $method, $data) {
-        $mode = array (
-            'soap_version' => 'SOAP_1_2',
-            'trace' => 1
-        );
-
-        $client = new \SoapClient('https://'.$this->configuration->getDomain().$this->getWSDL(), $mode);
-
-        $client->__setLocation('https://'.$this->configuration->getDomain().$this->getEndpoint());
-
-        $this->getHeader($client);
+        $client = $this->getClient();
 
         try {
             $resp = $client->__soapCall($operation, array($data));
@@ -55,6 +46,8 @@ abstract class AbstractSOAPRequest {
             throw $e;
         }
     }
+
+    protected abstract function getClient();
 
     protected abstract function getWSDL();
 

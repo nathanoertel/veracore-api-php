@@ -2,6 +2,8 @@
 namespace VeraCoreAPI;
 
 class OrderCancel extends AbstractSOAPRequest {
+    private static $client = null;
+  
     public function cancel($orderId) {
         return parent::get('CancelOrder', array(
             'OrderData' => array(
@@ -14,6 +16,23 @@ class OrderCancel extends AbstractSOAPRequest {
                 )
             )
         ));
+    }
+
+    protected function getClient() {
+      if(self::$client === null) {
+        $mode = array (
+            'soap_version' => 'SOAP_1_2',
+            'trace' => 1
+        );
+
+        self::$client = new \SoapClient('https://'.$this->configuration->getDomain().$this->getWSDL(), $mode);
+
+        self::$client->__setLocation('https://'.$this->configuration->getDomain().$this->getEndpoint());
+
+        $this->getHeader(self::$client);
+      }
+
+      return self::$client;
     }
     
     protected function getWSDL() {

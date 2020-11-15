@@ -1,25 +1,21 @@
 <?php
 namespace VeraCoreAPI;
 
-class Products extends AbstractSOAPRequest {
+class Shipping extends AbstractSOAPRequest {
     private static $client = null;
   
-    public function get($productId, $ownerId = '') {
-        return parent::get('GetProduct', array(
-            'OwnerID' => $ownerId,
-            'ProductID' => $productId
+    public function packages($startDate, $endDate = null) {
+        return parent::get('GetShippingInformation', array(
+            'startDate' => date('Y-m-d\TH:i:sP', $startDate),
+            // 'endDate' => date('Y-m-d\Th:i:s', $endDate),
+            'includeDetails' => true
         ));
     }
-
-    public function offers($search) {
-        return parent::get('GetOffers', array(
-            'sortGroups' => '',
-            'categoryGroupDescription' => '',
-            'mailerUID' => '',
-            'searchString' => $search,
-            'searchID' => true,
-            'searchDescription' => false,
-            'priceClassDescription' => ''
+   
+    public function package($packageId) {
+        return parent::get('GetShippingInfoByPackageId', array(
+            'packageId' => $packageId,
+            'includeDetails' => true
         ));
     }
 
@@ -41,15 +37,15 @@ class Products extends AbstractSOAPRequest {
     }
    
     protected function getWSDL() {
-        return '/pmomsws/oms.asmx?wsdl';
+        return '/PMWarehouse/services/ShippingSync.asmx?wsdl';
     }
 
     protected function getEndpoint() {
-        return '/pmomsws/oms.asmx?wsdl';
+        return '/PMWarehouse/services/ShippingSync.asmx';
     }
 
     protected function getHeader($client) {
-        $header = new \SoapHeader('http://omscom/', 'AuthenticationHeader', array(
+        $header = new \SoapHeader('http://sma-promail/', 'AuthenticationHeader', array(
             'Username' => $this->configuration->getUsername(),
             'Password' => $this->configuration->getPassword()
         ));

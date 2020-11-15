@@ -2,6 +2,8 @@
 namespace VeraCoreAPI;
 
 class Orders extends AbstractSOAPRequest {
+    private static $client = null;
+    
     public function add(model\Order $order) {
         return parent::post('AddOrder', array(
             'order' => $order
@@ -19,6 +21,23 @@ class Orders extends AbstractSOAPRequest {
             'StartDate' =>  $startDate,
             'EndDate' => $endDate
         ));
+    }
+
+    protected function getClient() {
+      if(self::$client === null) {
+        $mode = array (
+            'soap_version' => 'SOAP_1_2',
+            'trace' => 1
+        );
+
+        self::$client = new \SoapClient('https://'.$this->configuration->getDomain().$this->getWSDL(), $mode);
+
+        self::$client->__setLocation('https://'.$this->configuration->getDomain().$this->getEndpoint());
+
+        $this->getHeader(self::$client);
+      }
+
+      return self::$client;
     }
     
     protected function getWSDL() {
